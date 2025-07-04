@@ -57,7 +57,6 @@ class ExpiryHelper {
     }
 }
 
-// Base Product class
 abstract class Product {
     protected String name;
     protected double price;
@@ -94,13 +93,11 @@ abstract class Product {
     public Date getExpiryDate() { return expiryDate; }
 }
 
-// Interface for shippable items
 interface Shippable {
     String getName();
     double getWeight();
 }
 
-// Products that require shipping
 class ShippableProduct extends Product implements Shippable {
     private double weight; // in kg
     
@@ -125,7 +122,6 @@ class ShippableProduct extends Product implements Shippable {
     }
 }
 
-// Products that don't require shipping (digital products)
 class DigitalProduct extends Product {
     
     public DigitalProduct(String name, double price, int quantity) {
@@ -142,7 +138,6 @@ class DigitalProduct extends Product {
     }
 }
 
-// Shopping cart implementation
 class Cart {
     private Map<Product, Integer> items = new HashMap<>();
     
@@ -181,7 +176,6 @@ class Cart {
     }
 }
 
-// Shipping service as specified in requirements
 class ShippingService {
     private static final double SHIPPING_FEE = 30.0;
     
@@ -218,7 +212,6 @@ class ShippingService {
     }
 }
 
-// Customer class
 class Customer {
     private String name;
     private double balance;
@@ -240,7 +233,6 @@ class Customer {
     public String getName() { return name; }
 }
 
-// Main checkout function
 public class EcommerceSystem {
     
     public static void checkout(Customer customer, Cart cart) {
@@ -249,7 +241,6 @@ public class EcommerceSystem {
             return;
         }
         
-        // Check for expired products and stock availability
         List<Shippable> shippableItems = new ArrayList<>();
         
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet()) {
@@ -266,7 +257,6 @@ public class EcommerceSystem {
                 return;
             }
             
-            // Collect shippable items
             if (product.requiresShipping()) {
                 for (int i = 0; i < quantity; i++) {
                     shippableItems.add((Shippable) product);
@@ -283,12 +273,10 @@ public class EcommerceSystem {
             return;
         }
         
-        // Process shipping if needed
         if (!shippableItems.isEmpty()) {
             ShippingService.ship(shippableItems);
         }
         
-        // Print checkout receipt
         System.out.println("** Checkout receipt **");
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet()) {
             Product product = entry.getKey();
@@ -302,10 +290,8 @@ public class EcommerceSystem {
         System.out.printf("Shipping %.0f\n", shippingFees);
         System.out.printf("Amount %.0f\n", totalAmount);
         
-        // Process payment
         customer.pay(totalAmount);
         
-        // Update inventory
         for (Map.Entry<Product, Integer> entry : cart.getItems().entrySet()) {
             entry.getKey().reduceQuantity(entry.getValue());
         }
