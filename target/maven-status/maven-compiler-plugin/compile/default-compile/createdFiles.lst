@@ -5,6 +5,5 @@ ecommerce\ecommercesystem\Shippable.class
 ecommerce\ecommercesystem\ShippableProduct.class
 ecommerce\ecommercesystem\ShippingService.class
 ecommerce\ecommercesystem\Product.class
-ecommerce\ecommercesystem\Checkout.class
 ecommerce\ecommercesystem\ExpiryHelper.class
 ecommerce\ecommercesystem\Customer.class
